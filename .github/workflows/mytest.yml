@@ -1,0 +1,19 @@
+name: Deployment exercise
+on: push
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Code
+      - uses: actions/cehckout@v3
+      - name: Install dependencies
+      - run: npm ci
+      - name: lint
+        run: npm lint
+      - name: test
+        run: npm test
+      - name: Build
+        run: npm build
+      - name: Deploying code!!!
+        run : echo "Deployed Code !!!"
+     
