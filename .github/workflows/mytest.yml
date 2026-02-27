@@ -18,6 +18,7 @@ jobs:
         run: npm run lint
 
   test:
+    needs: lint
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -31,9 +32,14 @@ jobs:
         run: npm ci
       - name: Run tests
         run: npm run test
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: my-artifact
+          path: assets
 
   deploy:
-    needs: [lint, test]
+    needs:  test
     runs-on: ubuntu-latest
     steps:
       - name: Get Code
@@ -46,5 +52,11 @@ jobs:
       
       - name: Install dependencies
         run: npm ci
+      - name: Download Artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
+      - name: Output artifacts
+        run: ls 
       - name: Deploying code!!!
         run: echo "Deployed Code !!!"
