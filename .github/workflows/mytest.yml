@@ -74,7 +74,7 @@ jobs:
           name: my-artifact
 
       - name: Output artifacts
-        run: ls
+        run: ls -lart
 
       - name: Deploying code!!!
         run: echo "Deployed Code !!!"
