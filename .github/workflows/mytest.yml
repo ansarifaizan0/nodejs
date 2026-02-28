@@ -52,29 +52,11 @@ jobs:
 
   deploy:
     needs: test
+    uses: ./.github/workflows/reusable-workflow.yml
+
+  print-deploy-job:
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
-      - name: Get Code
-        uses: actions/checkout@v4
-
-      - name: Cache Dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            deps-node-modules-
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          name: my-artifact
-
-      - name: Output artifacts
-        run: ls -lart
-
-      - name: Deploying code!!!
-        run: echo "Deployed Code !!!"
+      - name: Print output
+        run: echo "${{ needs.deploy.outputs.result }}"
