@@ -52,7 +52,7 @@ jobs:
 
   deploy:
     needs: test
-    uses: ./.github/workflows/reusable-workflow.yml
+    uses: ./.github/workflows/reusableworkflow.yml
 
   print-deploy-job:
     needs: deploy
